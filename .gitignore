@@ -1,8 +1,4 @@
-other/*
-photos/*
-
-
-# pyinstaller files
+# PyInstaller Files
 build/*
 dist/*
 .DS_Store
