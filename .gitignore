@@ -1,0 +1,10 @@
+other/*
+photos/*
+videos/*
+
+
+# pyinstaller files
+build/*
+dist/*
+.DS_Store
+main.spec
