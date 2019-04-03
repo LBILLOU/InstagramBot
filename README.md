@@ -5,9 +5,9 @@ Instagram bot designed to like, comment, follow and save posts.
 Created using Python3, Selenium, Tkinter and PyInstaller.
 
 ## Execution
-Download this project,
-Move comments.csv and chromedriver to desktop,
-Run the executable file,      
+Download this project,     
+Move comments.csv and chromedriver to desktop,       
+Run the executable file,        
 Fill in login and password,    
 Fill in you OS username,             
 Choose which hashtags to search for,       
