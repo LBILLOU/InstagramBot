@@ -88,7 +88,9 @@ class bot:
             print("ERROR : comment button not found")
             return False
         try:
-            commentField = lambda: self.driver.find_element_by_xpath("//*[@aria-label='Ajouter un commentaire...']")
+            #commentField = lambda: self.driver.find_element_by_xpath("//*[@aria-label='Ajouter un commentaire...']")
+            commentField = lambda: self.driver.find_element_by_xpath("//*[@class='Ypffh']")
+            commentField().click()
             commentField().send_keys('')
             commentField().clear()
         except NoSuchElementException:

@@ -57,7 +57,7 @@ likeLine.pack(side=TOP)
 # Comment line
 commentLine = Frame(window)
 commentVar = IntVar()
-commentCheckBtn = Checkbutton(commentLine,variable=commentVar,state=DISABLED)
+commentCheckBtn = Checkbutton(commentLine,variable=commentVar) #,state=DISABLED
 commentCheckBtn.grid(row=0,column=0)
 commentLbl = Label(commentLine, text='Comment', anchor=W, width=8)
 commentLbl.grid(row=0,column=1)
