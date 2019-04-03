@@ -119,7 +119,7 @@ infoLbl = Label(progressTile, text='-', width=32)
 infoLbl.grid(row=1,column=0,columnspan=2)
 resetBtn = Button(progressTile,text='Reset',width=4,command=lambda:resetUI())
 resetBtn.grid(row=2,column=0)
-goBtn = Button(progressTile,text='Run',width=4,command=lambda:main())
+goBtn = Button(progressTile,text='Go',width=4,command=lambda:main())
 goBtn.grid(row=2,column=1)
 progressTile.pack(side=TOP)
 
@@ -239,6 +239,10 @@ def main():
     commentRate = inputToDigit(commentFreq.get())/100
     followRate = inputToDigit(followFreq.get())/100
     saveRate = inputToDigit(saveFreq.get())/100
+    likeWaitTime = inputToDigit(likeWait.get()) # 3h LIKES 120 per hour max, 300 to 450 per day max (1,5x daily follow)
+    commentWaitTime = inputToDigit(commentWait.get()) # 2h COMMENTS 120 per hour max, 250 per day max
+    followWaitTime = inputToDigit(followWait.get()) # RULE...h FOLLOW/UNFOLLOW 30 per hour max
+    saveWaitTime = inputToDigit(saveWait.get())
 
     commentsList = open('comments.csv').readlines()
     for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
@@ -263,19 +267,20 @@ def main():
             # LIKE
             if likeVar.get() == 1:
                 if random.random() < likeRate:
-                    if bizgo.likePost(bizgoList[i]):
+                    if bizgo.likePost(bizgoList[i], likeWaitTime):
                         likeCount += 1
             # COMMENT
             if commentVar.get() == 1:
                 if random.random() < commentRate:
-                    if bizgo.commentPost(bizgoList[i], commentsList):
+                    if bizgo.commentPost(bizgoList[i], commentsList, commentWaitTime):
                         commentCount += 1
                     else:
                         print('No comment │')
             # FOLLOW
             if followVar.get() == 1:
                 if random.random() < followRate:
-                    if bizgo.followFromPost(bizgoList[i]): followCount += 1
+                    if bizgo.followFromPost(bizgoList[i], followWaitTime):
+                        followCount += 1
                     else: print('Following  │')
                 else: print('No follow  │')
             # SAVE
@@ -283,7 +288,7 @@ def main():
                 if random.random() < saveRate:
                     srcLink = bizgo.retrieveSrcFromPost(bizgoList[i])
                     if srcLink:
-                        bizgo.saveImage(srcLink)
+                        bizgo.saveImage(srcLink, saveWaitTime)
                         savedCount += 1
                     else: print('No src file│')
 

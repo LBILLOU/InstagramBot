@@ -8,10 +8,6 @@ import urllib.request
 import sys
 
 pageLoadingWaitTime = 2
-likeWaitTime = 10   # 3h LIKES 120 per hour max, 300 to 450 per day max (1,5x daily follow)
-commentWaitTime = 10 # 2h COMMENTS 120 per hour max, 250 per day max
-followWaitTime = 10  # RULE...h FOLLOW/UNFOLLOW 30 per hour max
-saveImageWaitTime = 1
 
 class bot:
     def __init__(self, username, password):
@@ -56,7 +52,7 @@ class bot:
         print('*** ' + str(len(pic_hrefs)) + ' posts retrieved from the hashtag "' + hashtag + '"')
         return pic_hrefs
 
-    def likePost(self, instaPostLink):
+    def likePost(self, instaPostLink, waitTime):
         # Function to like a post using its URL link
         if self.driver.current_url != instaPostLink:
             self.driver.get(instaPostLink)
@@ -72,13 +68,13 @@ class bot:
             except NoSuchElementException:
                 self.driver.find_element_by_xpath("//*[@class='fr66n']").click()
                 print('Post liked > ' + instaPostLink)
-                time.sleep(likeWaitTime)
+                time.sleep(waitTime)
                 return True
             else:
                 print('Post link  │ ' + instaPostLink)
                 return False
 
-    def commentPost(self, instaPostLink, commentsList):
+    def commentPost(self, instaPostLink, commentsList, waitTime):
         # Function to comment posts from posts url list
         if self.driver.current_url != instaPostLink:
             self.driver.get(instaPostLink)
@@ -104,7 +100,7 @@ class bot:
             time.sleep(pageLoadingWaitTime)
             commentField().send_keys(Keys.RETURN)
             print('Commented  > "' + commentToWrite + '"')
-            time.sleep(commentWaitTime)
+            time.sleep(waitTime)
             return True
 
     def retrieveSrcFromPost(self, instaPostLink):
@@ -129,7 +125,7 @@ class bot:
         else:
             return src_link
 
-    def saveImage(self, imgSrc):
+    def saveImage(self, imgSrc, waitTime):
             # Function to save an image locally from its source link
             current_milli_time = lambda: int(round(time.time()))
             # Managing jpg vs mp4 from src
@@ -142,12 +138,11 @@ class bot:
                 filepath = "./other/" + str(current_milli_time()) + str(fileExt)
             urllib.request.urlretrieve(imgSrc, filepath)
             print('File Saved > ' + filepath)
-            time.sleep(saveImageWaitTime)
+            time.sleep(waitTime)
             return True
 
-    def followFromPost(self, instaPostLink):
+    def followFromPost(self, instaPostLink, waitTime):
         # Function to follow a user from post link
-        ###print('Follow...xxx')
         if self.driver.current_url != instaPostLink:
             self.driver.get(instaPostLink)
             time.sleep(pageLoadingWaitTime)
@@ -159,7 +154,7 @@ class bot:
             follow_button = self.driver.find_element_by_xpath("//*[@class='oW_lN _0mzm- sqdOP yWX7d        ']")
             follow_button.click()
             print('Followed   > ' + name)
-            time.sleep(followWaitTime)
+            time.sleep(waitTime)
             return True
         except Exception:
             return False
