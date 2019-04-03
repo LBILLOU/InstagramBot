@@ -17,7 +17,6 @@ class bot:
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        #self.driver = webdriver.Chrome('/Users/lbillou/Documents/OTO/instaluv/chromedriver')
         self.driver = webdriver.Chrome('./chromedriver')
 
     def closeBrowser(self):
@@ -165,72 +164,7 @@ class bot:
         except Exception:
             return False
 
-def main():
-    startTime = datetime.now()
-    retrievedPosts = 0
-    reachedPosts = 0
-    likeCount = 0
-    commentCount = 0
-    followCount = 0
-    savedCount = 0
-    commentRate = 0.99
-    followRate = 0.99
 
-    commentsList = open('comments.csv').readlines()
-    for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
-
-    givenHashtags = sys.argv[1:]
-
-    botUsername = 'l0b5@outlook.com'
-    botPassword = 'instaluv'
-    bizgo = bot(botUsername, botPassword)
-    bizgo.login()
-
-    for hashtag in givenHashtags:
-        bizgoList = bizgo.retrievePostsFromHashtag(hashtag)
-        retrievedPosts += len(bizgoList)
-
-        #for i in range(1):
-        for i in range(len(bizgoList)):
-            print('-- ' + str(i+1) + '/' + str(len(bizgoList)) +' ---- ' + hashtag)
-            reachedPosts += 1
-            if bizgo.likePost(bizgoList[i]): likeCount += 1
-            # COMMENT, 50% chance of happening
-            #if random.random() < commentRate:
-                #if bizgo.commentPost(bizgoList[i], commentsList): commentCount += 1
-            #else: print('No comment │')
-            # FOLLOW, top posts only : 9 first posts
-            if random.random() < followRate:
-                if bizgo.followFromPost(bizgoList[i]): followCount += 1
-                else: print('Following  │')
-            else: print('No follow  │')
-            # SAVE, if src retrieved
-            srcLink = bizgo.retrieveSrcFromPost(bizgoList[i])
-            if srcLink:
-                bizgo.saveImage(srcLink)
-                savedCount += 1
-            else: print('No src file│')
-
-    print('-----------')
-    print('')
-    print('Hashtags : [' + str(givenHashtags) + ']')
-    print('Total  : ' + str(retrievedPosts) + ' -> ' + str(reachedPosts))
-    print('')
-    print('Likes : ' + str(likeCount) + ' │ ' + str(round(likeCount/reachedPosts, 2)*100) + '%')
-    print('Comments : ' + str(commentCount) + ' │ ' + str(round(commentCount/reachedPosts, 2)*100) + '%')
-    print('Follow : ' + str(followCount) + ' │ ' + str(round(followCount/reachedPosts, 2)*100) + '%')
-    print('Saved : ' + str(savedCount) + ' │ ' + str(round(savedCount/reachedPosts, 2)*100) + '%')
-    print('')
-    print('Elapsed Time : ' + str(datetime.now() - startTime))
-    print('Start : ' + str(startTime))
-    print('End   : ' + str(datetime.now()))
-    # print('')
-    bizgo.closeBrowser()
-
-# py2exe...
-### Function tagging people comment
-
-main()
 
 # TOP25 : instadaily picoftheday cute happy love beautiful photooftheday food
 # cat cats catsofinstagram instacat instacats
