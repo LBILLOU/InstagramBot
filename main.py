@@ -244,8 +244,8 @@ def main():
     followWaitTime = inputToDigit(followWait.get()) # RULE...h FOLLOW/UNFOLLOW 30 per hour max
     saveWaitTime = inputToDigit(saveWait.get())
 
-    commentsList = open('comments.csv').readlines()
-    for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
+    #commentsList = open('./comments.csv').readlines()
+    #for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
 
     givenHashtags = hashtagsToList()
 

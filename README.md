@@ -20,3 +20,4 @@ Issues might occur with macOS Mojave : https://stackoverflow.com/questions/52529
 
 ## Enhancements
 Wrong login/pwd management.
+Commenting issues.
