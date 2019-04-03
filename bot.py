@@ -6,14 +6,16 @@ import time
 import random
 import urllib.request
 import sys
+import os
 
 pageLoadingWaitTime = 2
 
 class bot:
-    def __init__(self, username, password):
+    def __init__(self, username, password, path):
         self.username = username
         self.password = password
-        self.driver = webdriver.Chrome('./chromedriver')
+        self.driver = webdriver.Chrome(path)
+        #self.driver = webdriver.Chrome('./chromedriver')
 
     def closeBrowser(self):
         self.driver.close()

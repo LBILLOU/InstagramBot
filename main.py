@@ -1,3 +1,4 @@
+import os
 from bot import *
 from tkinter import *
 
@@ -17,14 +18,19 @@ loginPwdTile.pack(side=TOP)
 
 # Hashtags Tile
 hashtagsTile = Frame(window)
-hashtagsLbl = Label(hashtagsTile, text=' Hashtags :', anchor=W, width=8)
-hashtagsLbl.grid(row=0,column=0)
+userPathLbl = Label(hashtagsTile, text=' UserPath ', anchor=W, width=8)
+userPathLbl.grid(row=0,column=0)
+userPathIn = Entry(hashtagsTile,width=15)
+userPathIn.insert(END, '/Users/***')
+userPathIn.grid(row=0,column=1)
+hashtagsLbl = Label(hashtagsTile, text=' Hashtags ', anchor=W, width=8)
+hashtagsLbl.grid(row=1,column=0)
 hashtagsIn = Entry(hashtagsTile,width=15)
-hashtagsIn.grid(row=0,column=1)
+hashtagsIn.grid(row=1,column=1)
 hashtagsTotal = Label(hashtagsTile, text='-', width=4)
-hashtagsTotal.grid(row=0,column=2)
+hashtagsTotal.grid(row=1,column=2)
 spacinglbl1 = Label(hashtagsTile)
-spacinglbl1.grid(row=1,column=1)
+spacinglbl1.grid(row=2,column=1)
 hashtagsTile.pack(side=TOP, fill=X)
 
 # Like line
@@ -116,11 +122,13 @@ progressTile = Frame(window)
 spacinglbl00 = Label(progressTile)
 spacinglbl00.grid(row=0,column=0)
 infoLbl = Label(progressTile, text='-', width=32)
-infoLbl.grid(row=1,column=0,columnspan=2)
+infoLbl.grid(row=1,column=0,columnspan=16)
 resetBtn = Button(progressTile,text='Reset',width=4,command=lambda:resetUI())
-resetBtn.grid(row=2,column=0)
+resetBtn.grid(row=2,column=7)
 goBtn = Button(progressTile,text='Go',width=4,command=lambda:main())
-goBtn.grid(row=2,column=1)
+goBtn.grid(row=2,column=8)
+spacinglblend = Label(progressTile)
+spacinglblend.grid(row=3,column=0)
 progressTile.pack(side=TOP)
 
 
@@ -129,9 +137,10 @@ def resetUI():
     uiElemList = [hashtagsTotal, likeCount, commentCount, followCount, saveCount]
     for elem in uiElemList:
         elem['text'] = '-'
-    uiUserEntries = [likeFreq, commentFreq, followFreq, saveFreq, likeWait, commentWait, followWait, saveWait]
+    uiUserEntries = [userPathIn, hashtagsIn, likeFreq, commentFreq, followFreq, saveFreq, likeWait, commentWait, followWait, saveWait]
     for elem in uiUserEntries:
         elem.delete(0, 'end')
+    userPathIn.insert(END, '/Users/***')
 
 def updateUI(reachedPosts, likeCountt, commentCountt, followCountt, savedCountt, elapsedTime):
     hashtagsTotal['text'] = str(reachedPosts)
@@ -161,6 +170,12 @@ def initVarCheck():
         return False
     if not pwd.get():
         infoLbl['text'] = 'No instagram password given.'
+        return False
+    if not userPathIn.get():
+        infoLbl['text'] = 'No user path given : /Users/*yourname*'
+        return False
+    elif userPathIn.get() == "/Users/***":
+        infoLbl['text'] = 'Specify you user path : /Users/*yourname*'
         return False
     if not hashtagsIn.get():
         infoLbl['text'] = 'No hashtag(s) given.'
@@ -244,7 +259,10 @@ def main():
     followWaitTime = inputToDigit(followWait.get()) # RULE...h FOLLOW/UNFOLLOW 30 per hour max
     saveWaitTime = inputToDigit(saveWait.get())
 
-    commentsList = open('./comments.csv').readlines()
+    userPath = userPathIn.get()
+    filePath = str(os.path.join(userPath, 'desktop/comments.csv'))
+    #commentsList = open('./comments.csv').readlines()
+    commentsList = open(filePath).readlines()
     for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
 
     givenHashtags = hashtagsToList()
@@ -254,7 +272,8 @@ def main():
 
     infoLbl['text'] = 'An error occured.'
 
-    bizgo = bot(botUsername, botPassword)
+    driverPath = str(os.path.join(userPath, 'desktop/chromedriver'))
+    bizgo = bot(botUsername, botPassword, driverPath)
     bizgo.login()
 
     for hashtag in givenHashtags:

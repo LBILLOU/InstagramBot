@@ -6,8 +6,10 @@ Created using Python3, Selenium, Tkinter and PyInstaller.
 
 ## Execution
 Download this project,
+Move comments.csv and chromedriver to desktop,
 Run the executable file,     
-Fill in login and password,        
+Fill in login and password,  
+Fill in you OS username,      
 Choose which hashtags to search for,     
 Choose between different actions (set desired variables),     
 Click "Go" !     
