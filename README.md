@@ -13,7 +13,7 @@ Choose between different actions (set desired variables),
 Click "Go" !     
 
 ## UI Screenshot
-![](https://image.noelshack.com/fichiers/2019/14/3/1554250845-capture-d-ecran-2019-04-03-a-02-20-23.png)
+![](https://image.noelshack.com/fichiers/2019/14/3/1554250845-capture-d-ecran-2019-04-03-a-02-20-23.png)       
 UI might not be different depending on your personal OS version.    
 Issues might occur with macOS Mojave : https://stackoverflow.com/questions/52529403/button-text-of-tkinter-not-works-in-mojave
 
