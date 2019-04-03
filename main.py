@@ -259,8 +259,10 @@ def main():
     followWaitTime = inputToDigit(followWait.get()) # RULE...h FOLLOW/UNFOLLOW 30 per hour max
     saveWaitTime = inputToDigit(saveWait.get())
 
-    userPath = userPathIn.get() + '/desktop/InstagramBot-master'
-    filePath = str(os.path.join(userPath, '/comments.csv'))
+    userPath = userPathIn.get()
+    #filePath = str(os.path.join(userPath, '/desktop/comments.csv'))
+    filePath = userPath + '/desktop/InstagramBot-master/comments.csv'
+    #/desktop/InstagramBot-master/
     #commentsList = open('./comments.csv').readlines()
     commentsList = open(filePath).readlines()
     for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
@@ -272,7 +274,7 @@ def main():
 
     infoLbl['text'] = 'An error occured.'
 
-    driverPath = str(os.path.join(userPath, '/chromedriver'))
+    driverPath = userPath + '/desktop/InstagramBot-master/chromedriver'
     bizgo = bot(botUsername, botPassword, driverPath)
     bizgo.login()
 

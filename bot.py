@@ -136,11 +136,11 @@ class bot:
             fileExt = imgSrc.split('?')[0][-4:]
             if fileExt == '.jpg':
                 ## str(os.path.join(userPath, 'desktop/chromedriver'))
-                filepath = userPath + "/photos/" + str(current_milli_time()) + str(fileExt)
+                filepath = userPath + "/desktop/InstagramBot-master/photos/" + str(current_milli_time()) + str(fileExt)
             elif fileExt == '.mp4':
-                filepath = userPath + "/videos/" + str(current_milli_time()) + str(fileExt)
+                filepath = userPath + "/desktop/InstagramBot-master/videos/" + str(current_milli_time()) + str(fileExt)
             else:
-                filepath = userPath + "/other/" + str(current_milli_time()) + str(fileExt)
+                filepath = userPath + "/desktop/InstagramBot-master/other/" + str(current_milli_time()) + str(fileExt)
             urllib.request.urlretrieve(imgSrc, filepath)
             print('File Saved > ' + filepath)
             time.sleep(waitTime)
