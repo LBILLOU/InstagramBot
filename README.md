@@ -6,7 +6,7 @@ Created using Python3, Selenium, Tkinter and PyInstaller.
 
 ## Execution
 Download this project,     
-Move comments.csv, chromedriver, photos, videos and other to desktop,       
+Move unzipped folder to desktop,       
 Run the executable file,        
 Fill in login and password,    
 Fill in you OS username,             

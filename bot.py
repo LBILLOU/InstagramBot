@@ -129,17 +129,18 @@ class bot:
         else:
             return src_link
 
-    def saveImage(self, imgSrc, waitTime):
+    def saveImage(self, imgSrc, waitTime, userPath):
             # Function to save an image locally from its source link
             current_milli_time = lambda: int(round(time.time()))
             # Managing jpg vs mp4 from src
             fileExt = imgSrc.split('?')[0][-4:]
             if fileExt == '.jpg':
-                filepath = "./photos/" + str(current_milli_time()) + str(fileExt)
+                ## str(os.path.join(userPath, 'desktop/chromedriver'))
+                filepath = userPath + "/photos/" + str(current_milli_time()) + str(fileExt)
             elif fileExt == '.mp4':
-                filepath = "./videos/" + str(current_milli_time()) + str(fileExt)
+                filepath = userPath + "/videos/" + str(current_milli_time()) + str(fileExt)
             else:
-                filepath = "./other/" + str(current_milli_time()) + str(fileExt)
+                filepath = userPath + "/other/" + str(current_milli_time()) + str(fileExt)
             urllib.request.urlretrieve(imgSrc, filepath)
             print('File Saved > ' + filepath)
             time.sleep(waitTime)
