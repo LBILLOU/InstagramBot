@@ -260,9 +260,8 @@ def main():
     saveWaitTime = inputToDigit(saveWait.get())
 
     userPath = userPathIn.get()
-    #filePath = str(os.path.join(userPath, '/desktop/comments.csv'))
     filePath = userPath + '/desktop/InstagramBot-master/comments.csv'
-    #/desktop/InstagramBot-master/
+    #filePath = str(os.path.join(userPath, '/desktop/comments.csv'))
     #commentsList = open('./comments.csv').readlines()
     commentsList = open(filePath).readlines()
     for i in range(len(commentsList)): commentsList[i] = commentsList[i][:-1]
